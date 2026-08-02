@@ -1,14 +1,14 @@
 {
   "resources": [
     {
-      "resource": "Microsoft.Windows.AppxPackage",
+      "resource": "Microsoft.Windows/OptionalFeatureList",
       "input": {
-        "Name": "OpenSSH.Server~~~~0.0.1.0",
+        "Name": "OpenSSH.Server",
         "Ensure": "Present"
       }
     },
     {
-      "resource": "Microsoft.Windows.Service",
+      "resource": "Microsoft.Windows/Service",
       "input": {
         "Name": "sshd",
         "StartupType": "Automatic",
@@ -16,7 +16,7 @@
       }
     },
     {
-      "resource": "Microsoft.Windows.Firewall",
+      "resource": "Microsoft.Windows/FirewallRuleList",
       "input": {
         "Name": "OpenSSH-Server-In-TCP",
         "Ensure": "Present"

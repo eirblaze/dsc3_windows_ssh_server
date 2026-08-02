@@ -18,19 +18,29 @@
 ### 1. 必要な構成をインストール
 
 #### DSC のインストール
-Windows では、次のようにインストールできます。
+
+1. すでに MS Store 版 がある場合は、あらかじめアンインストールが必要です。
+2. https://github.com/PowerShell/DSC から、最新の DSC をインストール
+
+#### DSC v3 Windows Resource Module を導入
 
 ```powershell
-winget search DesiredStateConfiguration --source msstore
-winget install --id 9NVTPZWRC6KQ --source msstore
+dsc resource install --module-name Microsoft.Windows --version latest
 ```
 
 ### 2. 構成の確認
 ```powershell
 $config = Get-Content .\configs\ssh-server.dsc.json | ConvertFrom-Json
 foreach ($r in $config.resources) {
-    dsc resource get --resource $r.resource --input $r.input
+    # PSCustomObject → Hashtable に変換
+    $input = @{}
+    foreach ($p in $r.input.PSObject.Properties) {
+        $input[$p.Name] = $p.Value
+    }
+
+    dsc resource get --resource $r.resource --input $input
 }
+
 ```
 
 ### 3. 構成の検証
