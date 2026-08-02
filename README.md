@@ -1,4 +1,4 @@
-# (未完) DSC v3 を使って、Windows PC 上に SSH サーバを構築する
+# DSC v3 を使って、Windows PC 上に SSH サーバを構築する
 
 このリポジトリは、Microsoft Desired State Configuration (DSC) v3 を使って、Windows PC 上に SSH サーバを構築・管理するための構成例をまとめるためのものです。
 
@@ -21,8 +21,13 @@
 
 1. すでに MS Store 版 がある場合は、あらかじめアンインストールが必要です。
 2. https://github.com/PowerShell/DSC から、最新の DSC をインストール
-3. 上記の DSC では `Microsoft.Windows/OptionalFeatureList` がサポートされないため、先に windows の追加機能 OpenSSH.Server を有効化しておく必要がる。
-`Microsoft.Windows/OptionalFeatureList` をサポートする DSC の場合は、以下を追加できる。
+3. 上記の DSC では `Microsoft.Windows/OptionalFeatureList` がサポートされないため、先に OpenSSH.Server を以下のコマンドでインストールする必要がる。
+
+```powershell
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+```
+
+`Microsoft.Windows/OptionalFeatureList` をサポートする DSC の場合は、 `dsc resource install` (後述) が使用可能なので、 `configs/ssh-server.dsc.json` に以下を追加できる。
 
 ```json
 {
@@ -42,7 +47,7 @@
 }
 ```
 
-#### DSC v3 Windows Resource Module を導入
+#### `dsc resource install` により、 DSC v3 Windows Resource Module を導入 ( DSC 完全版ビルドでのみ可能 )
 
 ```powershell
 dsc resource install --module-name Microsoft.Windows --version latest
