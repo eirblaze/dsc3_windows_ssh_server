@@ -35,12 +35,12 @@ dsc resource install --module-name Microsoft.Windows --version latest
 
 ### 3. 構成の検証
 ```powershell
-dsc config test --file .\configs\ssh-server.dsc.yaml
+./scripts/resource.test.ps1
 ```
 
 ### 4. 構成の適用
 ```powershell
-dsc config set --file .\configs\ssh-server.dsc.yaml
+./scripts/resource.set.ps1
 ```
 
 ## 今後の実装予定

@@ -1,16 +1,6 @@
 {
   "resources": [
-    {
-      "resource": "Microsoft.Windows/OptionalFeatureList",
-      "input": {
-        "features": [
-          {
-            "featureName": "OpenSSH.Server",
-            "state": "Installed"
-          }
-        ]
-      }
-    },
+
     {
       "resource": "Microsoft.Windows/Service",
       "input": {
@@ -27,7 +17,7 @@
             "name": "OpenSSH-Server-In-TCP",
             "direction": "Inbound",
             "protocol": 6,
-            "localPort": "22",
+            "localPorts": "22",
             "action": "Allow",
             "enabled": true,
             "profiles": ["Domain", "Private", "Public"]

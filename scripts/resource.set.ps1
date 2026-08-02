@@ -21,7 +21,7 @@ if (-not (Test-Path $configPath)) {
 $config = Get-Content -Path $configPath -Raw | ConvertFrom-Json
 
 foreach ($r in $config.resources) {
-    Write-Host "Getting resource: $($r.resource)"
+    Write-Host "Setting resource: $($r.resource)"
     $inputJson = $r.input | ConvertTo-Json -Compress -Depth 10
-    dsc resource get --resource $r.resource --input $inputJson
+    dsc resource set --resource $r.resource --input $inputJson
 }
