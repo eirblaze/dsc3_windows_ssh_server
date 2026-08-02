@@ -3,10 +3,10 @@
     {
       "resource": "Microsoft.Windows/OptionalFeatureList",
       "input": {
-        "Features": [
+        "features": [
           {
-            "Name": "OpenSSH.Server",
-            "Ensure": "Present"
+            "featureName": "OpenSSH.Server",
+            "state": "Installed"
           }
         ]
       }
@@ -14,9 +14,9 @@
     {
       "resource": "Microsoft.Windows/Service",
       "input": {
-        "Name": "sshd",
-        "StartupType": "Automatic",
-        "State": "Running"
+        "name": "sshd",
+        "startupType": "Automatic",
+        "state": "Running"
       }
     },
     {
@@ -24,8 +24,12 @@
       "input": {
         "Rules": [
           {
-            "Name": "OpenSSH-Server-In-TCP",
-            "Ensure": "Present"
+            "ruleName": "OpenSSH-Server-In-TCP",
+            "direction": "Inbound",
+            "protocol": "TCP",
+            "localPort": "22",
+            "action": "Allow",
+            "state": "Enabled"
           }
         ]
       }
