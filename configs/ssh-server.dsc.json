@@ -15,8 +15,8 @@
       "resource": "Microsoft.Windows/Service",
       "input": {
         "name": "sshd",
-        "startupType": "Automatic",
-        "state": "Running"
+        "startType": "Automatic",
+        "status": "Running"
       }
     },
     {
