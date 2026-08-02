@@ -3,8 +3,12 @@
     {
       "resource": "Microsoft.Windows/OptionalFeatureList",
       "input": {
-        "Name": "OpenSSH.Server",
-        "Ensure": "Present"
+        "Features": [
+          {
+            "Name": "OpenSSH.Server",
+            "Ensure": "Present"
+          }
+        ]
       }
     },
     {
@@ -18,8 +22,12 @@
     {
       "resource": "Microsoft.Windows/FirewallRuleList",
       "input": {
-        "Name": "OpenSSH-Server-In-TCP",
-        "Ensure": "Present"
+        "Rules": [
+          {
+            "Name": "OpenSSH-Server-In-TCP",
+            "Ensure": "Present"
+          }
+        ]
       }
     }
   ]
