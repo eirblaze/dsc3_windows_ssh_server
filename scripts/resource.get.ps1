@@ -1,29 +1,27 @@
-﻿$config = Get-Content .\configs\ssh-server.dsc.json | ConvertFrom-Json
+﻿$ErrorActionPreference = 'Stop'
+
+if (-not (Get-Command dsc -ErrorAction SilentlyContinue)) {
+    throw "dsc command was not found. Install DSC v3 first."
+}
+
+$windowsPrincipal = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
+$elevated = $windowsPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if (-not $elevated) {
+    throw "This script must be run from an elevated PowerShell session. Start PowerShell as Administrator and run it again."
+}
+
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$configPath = Join-Path $repoRoot 'configs/ssh-server.dsc.json'
+
+if (-not (Test-Path $configPath)) {
+    throw "Configuration file not found: $configPath"
+}
+
+$config = Get-Content -Path $configPath -Raw | ConvertFrom-Json
 
 foreach ($r in $config.resources) {
-
-    # 入れ子構造を正しく Hashtable に変換する関数
-    function ConvertTo-Hashtable($obj) {
-        if ($obj -is [System.Collections.IEnumerable] -and $obj -isnot [string]) {
-            $list = @()
-            foreach ($item in $obj) {
-                $list += ConvertTo-Hashtable $item
-            }
-            return $list
-        }
-
-        if ($obj -is [pscustomobject]) {
-            $ht = @{}
-            foreach ($p in $obj.PSObject.Properties) {
-                $ht[$p.Name] = ConvertTo-Hashtable $p.Value
-            }
-            return $ht
-        }
-
-        return $obj
-    }
-
-    $input = ConvertTo-Hashtable $r.input
-
-    dsc resource get --resource $r.resource --input $input
+    Write-Host "Querying resource: $($r.resource)"
+    $inputJson = $r.input | ConvertTo-Json -Compress -Depth 10
+    dsc resource get --resource $r.resource --input $inputJson
 }
