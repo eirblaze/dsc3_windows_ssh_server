@@ -22,14 +22,15 @@
     {
       "resource": "Microsoft.Windows/FirewallRuleList",
       "input": {
-        "Rules": [
+        "rules": [
           {
-            "ruleName": "OpenSSH-Server-In-TCP",
+            "name": "OpenSSH-Server-In-TCP",
             "direction": "Inbound",
-            "protocol": "TCP",
+            "protocol": 6,
             "localPort": "22",
             "action": "Allow",
-            "state": "Enabled"
+            "enabled": true,
+            "profiles": ["Domain", "Private", "Public"]
           }
         ]
       }
