@@ -21,11 +21,13 @@
 
 1. すでに MS Store 版 がある場合は、あらかじめアンインストールが必要です。
 2. https://github.com/PowerShell/DSC から、最新の DSC をインストール
-3. 上記の DSC では `Microsoft.Windows/OptionalFeatureList` がサポートされないため、先に OpenSSH.Server を以下のコマンドでインストールする必要がる。
+3. 上記の DSC (Appx 版 DSC v3) では `Microsoft.Windows/OptionalFeatureList` 等の、 DISM ベースのリソースがサポートされないため、先に OpenSSH.Server を以下のコマンドでインストールする必要がる。
 
 ```powershell
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 ```
+
+DSC v3 ではサービス起動とファイアウォールのみ宣言的に管理する。
 
 `Microsoft.Windows/OptionalFeatureList` をサポートする DSC の場合は、 `dsc resource install` (後述) が使用可能なので、 `configs/ssh-server.dsc.json` に以下を追加できる。
 
@@ -68,12 +70,19 @@ dsc resource install --module-name Microsoft.Windows --version latest
 ./scripts/resource.set.ps1
 ```
 
+## 実行結果について補足
+
+Windows Firewall はルールを内部的に正規化するため、
+DSC v3 の desiredState と actualState に差分が出る場合があります。
+これは仕様であり、構成は正しく適用されています。
+
 ## 今後の実装予定
 
-1. [ ] SSH サーバ機能の有効化
-2. [ ] ファイアウォール設定
-3. [ ] サービスの自動起動設定
-4. [ ] セキュリティ強化のための構成追加
+1. [x] SSH サーバ機能の有効化
+2. [x] ファイアウォール設定
+3. [x] サービスの自動起動設定
+5. [ ] SSH のハードニング（鍵認証・設定ファイル）を DSC v3 で宣言する
+4. [ ] セキュリティ強化のための構成追加: ポートをウェルノウンポートから別のポートに切り替える。
 
 ## 注意事項
 
