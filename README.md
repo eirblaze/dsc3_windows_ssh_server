@@ -21,6 +21,26 @@
 
 1. すでに MS Store 版 がある場合は、あらかじめアンインストールが必要です。
 2. https://github.com/PowerShell/DSC から、最新の DSC をインストール
+3. 上記の DSC では `Microsoft.Windows/OptionalFeatureList` がサポートされないため、先に windows の追加機能 OpenSSH.Server を有効化しておく必要がる。
+`Microsoft.Windows/OptionalFeatureList` をサポートする DSC の場合は、以下を追加できる。
+
+```json
+{
+  "resources": [
+    {
+      "resource": "Microsoft.Windows/OptionalFeatureList",
+      "input": {
+        "features": [
+          {
+            "featureName": "OpenSSH.Server",
+            "state": "Installed"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
 
 #### DSC v3 Windows Resource Module を導入
 

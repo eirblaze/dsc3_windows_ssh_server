@@ -1,6 +1,5 @@
 {
   "resources": [
-
     {
       "resource": "Microsoft.Windows/Service",
       "input": {
