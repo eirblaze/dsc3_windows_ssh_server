@@ -1,4 +1,4 @@
-# DSC v3 を使って、Windows PC 上に SSH サーバを構築する
+# (未完) DSC v3 を使って、Windows PC 上に SSH サーバを構築する
 
 このリポジトリは、Microsoft Desired State Configuration (DSC) v3 を使って、Windows PC 上に SSH サーバを構築・管理するための構成例をまとめるためのものです。
 
