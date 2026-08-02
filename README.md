@@ -27,7 +27,10 @@ winget install --id 9NVTPZWRC6KQ --source msstore
 
 ### 2. 構成の確認
 ```powershell
-dsc config get --file .\configs\ssh-server.dsc.yaml
+$config = Get-Content .\configs\ssh-server.dsc.json | ConvertFrom-Json
+foreach ($r in $config.resources) {
+    dsc resource get --resource $r.resource --input $r.input
+}
 ```
 
 ### 3. 構成の検証
