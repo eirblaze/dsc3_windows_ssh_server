@@ -55,3 +55,20 @@ dsc config set --file .\configs\ssh-server.dsc.yaml
 - `.env` 等の秘密情報や認証情報はリポジトリに直接コミットしない
 - 構成はべき等性を意識して作成する
 - 実際の運用前には、テスト環境での検証を行う
+
+## 補助資料
+
+OptionalFeatureList のスキーマ確認
+```powershell
+dsc resource schema --resource Microsoft.Windows/OptionalFeatureList
+```
+
+Service のスキーマ確認
+```powershell
+dsc resource schema --resource Microsoft.Windows/Service
+```
+
+FirewallRuleList のスキーマ確認
+```powershell
+dsc resource schema --resource Microsoft.Windows/FirewallRuleList
+```
