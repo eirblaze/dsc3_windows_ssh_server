@@ -1,4 +1,19 @@
 # DSC v3 configuration skeleton for Windows SSH server setup
 # This file is an initial template and should be validated with the installed DSC resources.
 
-resources: []
+resources:
+  - resource: Microsoft.Windows.AppxPackage
+    input:
+      Name: OpenSSH.Server~~~~0.0.1.0
+      Ensure: Present
+
+  - resource: Microsoft.Windows.Service
+    input:
+      Name: sshd
+      StartupType: Automatic
+      State: Running
+
+  - resource: Microsoft.Windows.Firewall
+    input:
+      Name: OpenSSH-Server-In-TCP
+      Ensure: Present
