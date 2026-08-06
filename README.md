@@ -19,9 +19,8 @@
 
 #### DSC のインストール
 
-1. すでに MS Store 版 がある場合は、あらかじめアンインストールが必要です。
-2. https://github.com/PowerShell/DSC から、最新の DSC をインストール
-3. 上記の DSC (Appx 版 DSC v3) では `Microsoft.Windows/OptionalFeatureList` 等の、 DISM ベースのリソースがサポートされないため、先に OpenSSH.Server を以下のコマンドでインストールする必要がる。
+1. https://learn.microsoft.com/ja-jp/powershell/dsc/overview?view=dsc-3.0 の内容をもとに、`winget install` コマンドでインストール、または、 https://github.com/PowerShell/DSC から、最新の DSC をインストールします。
+2. 上記の DSC (Appx 版 DSC v3) では `Microsoft.Windows/OptionalFeatureList` 等の、 DISM ベースのリソースがサポートされないため、先に OpenSSH.Server を以下のコマンドでインストールする必要がる。
 
 ```powershell
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
