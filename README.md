@@ -83,6 +83,8 @@ DSC v3 の desiredState と actualState に差分が出る場合があります�
 3. [x] サービスの自動起動設定
 5. [ ] SSH のハードニング（鍵認証・設定ファイル）を DSC v3 で宣言する
 4. [ ] セキュリティ強化のための構成追加: ポートをウェルノウンポートから別のポートに切り替える。
+5. [ ] 観測可能性（Observability）とCI/CDの組み込み
+6. [ ] ローカル/オンプレ環境 （Windows/Linux） での小規模LLM運用パイプライン構築: Ollamaなどの軽量LLM推論サーバーを立ち上げ、レスポンスタイムやトークン生成速度、入出力ログを可視化・評価する仕組み（LiteLLM + Langfuse など）を宣言的に構成する。
 
 ## 注意事項
 
@@ -106,3 +108,8 @@ FirewallRuleList のスキーマ確認
 ```powershell
 dsc resource schema --resource Microsoft.Windows/FirewallRuleList
 ```
+
+
+
+
+
